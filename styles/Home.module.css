@@ -3,30 +3,28 @@
 }
 
 .main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
+  /* min-height: 25vh; */
+  /* padding: 4rem 0; */
+  /* flex: 1; */
+  display: grid;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: auto;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1em;
 }
 
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+.test {
+  visibility: hidden;
 }
 
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+@media (max-width: 40em){
+  .test {
+    visibility: visible;
+  }
 }
+
 
 .title a {
   color: #0070f3;
@@ -90,6 +88,7 @@
 .card:active {
   color: #0070f3;
   border-color: #0070f3;
+  cursor: pointer;
 }
 
 .card h2 {
