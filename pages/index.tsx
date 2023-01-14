@@ -17,8 +17,9 @@ const Home: NextPage = () => {
         {/* <section> */}
         {Articles.map((article, idx) => {
           return article.ogImage && <div key={idx} className={styles.card} onClick={() => {
-            window.open(article.slug, "_empty")
+            window.open(`/articles/${article.id}`, "_empty")
           }}>
+            <Image src={article.coverImage} width="1000" height="500" alt="cover image for article"></Image>
             <h1>{article.title}</h1>
             <p>{article.content}</p>
           </div>

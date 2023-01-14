@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -39,6 +43,20 @@ a:hover {
   box-sizing: border-box;
 }
 
+@layer components {
+  .input {
+    @apply appearance-none w-full px-5 py-3 border border-slate-300 text-base leading-6 rounded-md text-gray-900 bg-white placeholder-slate-400 focus:placeholder-gray-400 transition duration-150 ease-in-out focus:invalid:border-pink-500 focus:invalid:ring-pink-500 invalid:border-pink-500 invalid:text-pink-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none 
+  }
+
+  .social-link {
+    @apply text-3xl fill-black dark:fill-white hover:cursor-pointer hover:text-green-800 pl-3
+  }
+
+  .link {
+    @apply px-5 hover:underline
+  }
+}
+
 @media (prefers-color-scheme: light) {
   html {
     color-scheme: light;
@@ -51,7 +69,4 @@ a:hover {
   .icon {
     color: black;
   }
-
-
 }
-

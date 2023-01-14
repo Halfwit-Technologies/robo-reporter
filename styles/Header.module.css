@@ -28,10 +28,6 @@
     /* border: 5px solid red; */
 }
 
-.link {
-    padding: 1em;
-}
-
 .link:hover {
     text-decoration: underline;
     /* border: dashed blue; */

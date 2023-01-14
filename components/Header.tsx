@@ -11,27 +11,24 @@ export const Header = () => {
             <a className={`${Styles.title} ${Styles.link}`} id="name" href="/">RoboReporter</a>
 
             <div>
-                <a className={Styles.link} href='/'>Latest</a>
-                <a className={Styles.link} href='/news'>News</a>
-                <a className={Styles.link} href='/opinion'>Opinion</a>
-                <a className={Styles.link} href='/local'>Local</a>
-                <a className={Styles.link} href='/politics'>Politics</a>
-                <a className={Styles.link} href='/entertainment'>Entertainment</a>
-                <a className={Styles.link} href='/sports'>Sports</a>
-                <a className={Styles.link} href='/about'>About</a>
+                <a className='link' href='/'>Latest</a>
+                <a className='link' href='/news'>News</a>
+                <a className='link' href='/opinion'>Opinion</a>
+                <a className='link' href='/local'>Local</a>
+                <a className='link' href='/politics'>Politics</a>
+                <a className='link' href='/entertainment'>Entertainment</a>
+                <a className='link' href='/sports'>Sports</a>
+                <a className='link' href='/about'>About</a>
             </div>
 
             <div className={Styles.actions}>
-                <a className={Styles.link}>
-                    {/* <span>  */}
-                        <FontAwesomeIcon icon={faMagnifyingGlass} onClick={() => search()} className={`${Styles.icon} ${Styles.link}`} />
-                    {/* </span> */}
-                </a>
-                <a className={Styles.link}>
-                    {/* <span> */}
-                        <FontAwesomeIcon id="themeSwitcher" icon={theme == 'light' ? faMoon : faSun} onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')} className={`${Styles.icon} ${Styles.link}`}/>
-                    {/* </span> */}
-                </a>
+                <p className='px-5'>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} onClick={() => search()} className="social-link link ext-3xl" />
+                </p>
+
+                <p className='px-5'>
+                    <FontAwesomeIcon id="themeSwitcher" icon={theme == 'light' ? faMoon : faSun} onClick={() => switchTheme()} className="social-link link text-3xl"/>
+                </p>
             </div>
         </header>
     )
@@ -42,8 +39,10 @@ const search = () => {
 }
 
 const switchTheme = () => {
-    let currentTheme = localStorage.getItem('theme');
-    localStorage.setItem('theme', currentTheme == 'dark' ? 'light' : 'dark');
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
 
-    const icon = document.getElementById('themeSwitcher')
 }

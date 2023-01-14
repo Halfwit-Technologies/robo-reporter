@@ -1,9 +1,12 @@
-type User = {
+import { Model, Document } from 'mongoose'
+
+interface User {
+    _id: string
     name: string
-    id: string
     image: string
-    updatedAt: string
+    updatedAt: number
     isAuthor: boolean
 }
 
+declare let userSchema: Model<User>
 export default User;

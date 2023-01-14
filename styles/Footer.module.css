@@ -59,10 +59,11 @@
 
   .links {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2em;
     align-items: center;
     margin: auto;
+    padding: auto;
   }
 
   .links > div {
@@ -94,3 +95,5 @@
     display: flex;
     /* margin: 2em; */
   }
+
+  

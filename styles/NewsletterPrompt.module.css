@@ -1,0 +1,12 @@
+.newsletter {
+    display: flex;
+    border-radius: 0.5rem;
+    background-color: #333;
+    width: 100%;
+
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1.5rem;
+  }
