@@ -3,9 +3,18 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Articles from '../data.js'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 const Home: NextPage = () => {
-  return (
+//   const { data: session, status } = useSession()
+//   const userEmail = session?.user?.email
+  
+//   if (status === 'loading') {
+//     return <p>Loading...</p>
+// }
+
+// if (status === 'authenticated') {
+    return <>
     <div className={styles.container}>
       <Head>
         <title>RoboReporter</title>
@@ -14,6 +23,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        {/* <p>Signed in as {userEmail}</p> */}
         {/* <section> */}
         {Articles.map((article, idx) => {
           return article.ogImage && <div key={idx} className={styles.card} onClick={() => {
@@ -27,7 +37,12 @@ const Home: NextPage = () => {
         {/* </section> */}
       </main>
     </div>
-  )
+    </>
+// }
+
+  // return (
+  //   <button onClick={() => signIn()}>Sign In</button>
+  // )
 }
 
 export default Home

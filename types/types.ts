@@ -3,3 +3,4 @@ type ConstructorMapping<T> =
     T extends StringConstructor ? string : never 
 
 export default ConstructorMapping
+

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Articles from '../../data'
 import { AboutCard } from "../../components/AboutCard";
 import { NewsletterPrompt } from "../../components/NewsletterPrompt";
+import Post from '../../interfaces/Post'
 
 
 const ArticleId: NextPage = () => {
@@ -14,9 +15,10 @@ const ArticleId: NextPage = () => {
         return article.id == id
     })
 
+
     return (
     <div className="mx-auto">
-        <div className="flex flex-wrap w-full pt-0">
+        <div className="flex flex-wrap w-full pt-0 dark:bg-red-500">
 
             <div className="flex flex-col bg-gray-50 rounded shadow-md overflow-hidden mb-4">
                 <h1 className="font-bold text-5xl">{article?.title}</h1>
@@ -30,7 +32,7 @@ const ArticleId: NextPage = () => {
             </div> */}
 
                 <div className="shrink-0">
-                    <img src={`${article?.coverImage}`} alt="cover image" className="max-w-5xl h-full rounded-lg object-cover"></img>
+                    <img src={`${article?.coverImage}`} alt="cover image" className="max-w-5xl h-full rounded-lg object-cover" width="1250px"></img>
                 </div>
 
                 <div className="flex-1">

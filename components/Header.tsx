@@ -2,11 +2,18 @@ import Styles from '../styles/Header.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 export const Header = () => {
+    const { data: session, status } = useSession()
+    const loading = status === 'loading'
     const [ theme, setTheme ] = useState('dark')
 
-    return (
+    if (loading) {
+        return <h1>Loading... Please Wait!</h1>
+    }
+
+    return (!loading &&
         <header id={Styles.header}>
             <a className={`${Styles.title} ${Styles.link}`} id="name" href="/">RoboReporter</a>
 
@@ -29,6 +36,13 @@ export const Header = () => {
                 <p className='px-5'>
                     <FontAwesomeIcon id="themeSwitcher" icon={theme == 'light' ? faMoon : faSun} onClick={() => switchTheme()} className="social-link link text-3xl"/>
                 </p>
+
+                {status === 'authenticated' ? 
+                <>
+                    <p>Signed in as {session.user?.name}</p>
+                    <button onClick={() => signOut()} className="rounded-md bg-blue-400 text-white px-3">Sign Out</button>
+                </> 
+                : <button onClick={() => signIn()}>Sign In</button>}
             </div>
         </header>
     )

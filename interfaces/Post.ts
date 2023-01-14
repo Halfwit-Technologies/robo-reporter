@@ -1,6 +1,6 @@
 import User from './User'
 import { Model, Document } from 'mongoose'
-import ConstructorMapping from '../utils/types'
+import ConstructorMapping from '../types/types'
 
 interface Post {
     _id: string
