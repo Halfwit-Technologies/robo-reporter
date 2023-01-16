@@ -8,24 +8,34 @@ import GoogleProvider from 'next-auth/providers/google'
 export default NextAuth({
     providers: [
         GithubProvider({
+            // @ts-ignore
             clientId: process.env.GITHUB_ID,
+            // @ts-ignore
             clientSecret: process.env.GITHUB_SECRET
         }),
         DiscordProvider({
+            // @ts-ignore
             clientId: process.env.DISCORD_ID,
+            // @ts-ignore
             clientSecret: process.env.DISCORD_SECRET
         }),
         TwitterProvider({
+            // @ts-ignore
             clientId: '',
+            // @ts-ignore
             clientSecret: ''
         }),
         FacebookProvider({
-            clientId: '',
-            clientSecret: ''
+            // @ts-ignore
+            clientId: process.env.FACEBOOK_ID,
+            // @ts-ignore
+            clientSecret: process.env.FACEBOOK_SECRET
         }),
         GoogleProvider({
-            clientId: '',
-            clientSecret: ''
+            // @ts-ignore
+            clientId: process.env.GOOGLE_ID,
+            // @ts-ignore
+            clientSecret: process.env.GOOGLE_SECRET
         })
     ]
 })
