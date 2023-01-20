@@ -2,6 +2,7 @@ import styles from '../styles/Footer.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { NewsletterPrompt } from './NewsletterPrompt'
+import Link from 'next/link'
 export const Footer = () => {
 
 return (
@@ -23,8 +24,8 @@ return (
           <div>
             <p className={styles.category}>Support</p>
             <ul className={styles.noList}>
-              <li><a href="/contact" target="_empty">Contact</a></li>
-              <li><a href='/about' target="_empty">About</a></li>
+              <li><Link href="/contact" target="_empty">Contact</Link></li>
+              <li><Link href='/about' target="_empty">About</Link></li>
             </ul>
           </div>
 
