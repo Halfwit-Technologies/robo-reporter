@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import Link from 'next/link'
 
 export const Header = () => {
     const { data: session, status } = useSession()
@@ -15,17 +16,17 @@ export const Header = () => {
 
     return (!loading &&
         <header id={Styles.header}>
-            <a className={`${Styles.title} ${Styles.link}`} id="name" href="/">RoboReporter</a>
+            <Link className={`${Styles.title} ${Styles.link}`} id="name" href="/">RoboReporter</Link>
 
             <div>
-                <a className='link' href='/'>Latest</a>
+                <Link className='link' href='/'>Latest</Link>
                 <a className='link' href='/news'>News</a>
                 <a className='link' href='/opinion'>Opinion</a>
                 <a className='link' href='/local'>Local</a>
                 <a className='link' href='/politics'>Politics</a>
                 <a className='link' href='/entertainment'>Entertainment</a>
                 <a className='link' href='/sports'>Sports</a>
-                <a className='link' href='/about'>About</a>
+                <Link className='link' href='/about'>About</Link>
             </div>
 
             <div className={Styles.actions}>

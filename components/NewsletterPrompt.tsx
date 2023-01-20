@@ -5,7 +5,7 @@ export const NewsletterPrompt = () => {
         <div className={`${styles.newsletter} max-w-xl`} >
         <div className='flex-1'>
           <h1 className='leading-5 text-white text-3xl font-bold'>Want to stay informed?</h1>
-          <p className='mt-2 text-sm leading-4 text-gray-300'>Sign up for our newsletter to stay up to date on this week's craziest news</p>
+          <p className='mt-2 text-sm leading-4 text-gray-300'>Sign up for our newsletter to stay up to date on this week&apos;s craziest news</p>
         </div>
 
         <div className='mt-2 w-full'>
