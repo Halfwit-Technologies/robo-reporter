@@ -12,7 +12,7 @@
   align-items: center;
   margin: auto;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1em;
+  gap: .25em;
 }
 
 .test {

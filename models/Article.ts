@@ -8,3 +8,4 @@ const articleSchema = new Schema({
     }
 })
 
+export default Model<typeof articleSchema>

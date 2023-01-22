@@ -4,7 +4,20 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Articles from '../data'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencil, faPencilSquare } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
+
+import { useSession, signIn, signOut } from 'next-auth/react'
+
 const Home: NextPage = () => {
+  const { data: session, status } = useSession()
+  const loading = status === 'loading'
+
+  if (loading) {
+    return <h1>Loading... Please Wait!</h1>
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,31 +26,41 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div className='text-xs max-w-xs'>
+        <Link href={"/articles/new"}>
+          <p className='text-xs'><FontAwesomeIcon icon={faPencilSquare} size='sm' className='text-5xl dark:text-white social-link hover:shadow-md'/> </p>
+          </Link>
+      </div>
+
+        <br />
+        <br />
+
       <main className={styles.main}>
-        {/* <p>Signed in as {userEmail}</p> */}
-        {/* <section> */}
+
         {Articles.map((article, idx) => {
-          return article.ogImage && <div key={idx} className={`${styles.card} max-h-80 overflow-hidden`} onClick={() => {
+          return article.ogImage && 
+          <div key={idx} className={`${styles.card} max-h-80 overflow-hidden`} onClick={() => {
             window.open(`/articles/${article.id}`, "_empty")
           }}>
-            <Image src={article.coverImage} width="1000" height="500" alt="cover image for article"></Image>
-            <h1>{article.title}</h1>
+            <Image src={article.coverImage} width="1000" height="500" alt="cover image for article" priority></Image>
+
+            <h1 className='text-lg font-bold dark:text-white'>{article.title}</h1>
+            {
+              status == 'authenticated' ? 
+              <span>
+                <div className='max-w-sm text-sm'>
+                <Link href={`/articles/edit/${article.id}`}>
+                  <FontAwesomeIcon icon={faPencil} size='xs' className='dark:text-white text-xs hover:text-orange-400'/>
+                </Link>
+              </div>
+
+              </span>
+             : <div />
+            }
+
             <p className=''>{article.content}</p>
           </div>
         })}
-        {/* </section> */}
-        {/* <p>Signed in as {userEmail}</p> */}
-        {/* <section> */}
-        {Articles.map((article, idx) => {
-          return article.ogImage && <div key={idx} className={styles.card} onClick={() => {
-            window.open(`/articles/${article.id}`, "_empty")
-          }}>
-            <Image src={article.coverImage} width="1000" height="500" alt="cover image for article"></Image>
-            <h1>{article.title}</h1>
-            <p>{article.content}</p>
-          </div>
-        })}
-        {/* </section> */}
       </main>
     </div>
   )

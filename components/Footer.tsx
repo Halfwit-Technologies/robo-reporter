@@ -6,12 +6,7 @@ import Link from 'next/link'
 export const Footer = () => {
 
 return (
-    <footer className={`${styles.footer}`}>
-        {/* <a
-          href={process.env.HOST}
-          rel="noopener noreferrer"
-        >RoboReporter</a> */}
-
+    <footer className={`${styles.footer} dark:text-white`}>
         <div className={`${styles.links} px-20`}>
           <div>
             <p className={styles.category}>Terms of use</p>

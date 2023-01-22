@@ -15,7 +15,7 @@ export const Header = () => {
     }
 
     return (!loading &&
-        <header id={Styles.header}>
+        <header id={Styles.header} className="m-10">
             <Link className={`${Styles.title} ${Styles.link}`} id="name" href="/">RoboReporter</Link>
 
             <div>
@@ -31,7 +31,7 @@ export const Header = () => {
 
             <div className={Styles.actions}>
                 <p className='px-5'>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} onClick={() => search()} className="social-link link ext-3xl" />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} onClick={() => search()} className="social-link link text-3xl" />
                 </p>
 
                 <p className='px-5'>
@@ -40,7 +40,7 @@ export const Header = () => {
 
                 {status === 'authenticated' ? 
                 <>
-                    <p>Signed in as {session.user?.name}</p>
+                    <p className="pr-4">Signed in as {session.user?.name}</p>
                     <button onClick={() => signOut()} className="rounded-md bg-blue-400 text-white px-3">Sign Out</button>
                 </> 
                 : <button onClick={() => signIn()}>Sign In</button>}
@@ -54,10 +54,16 @@ const search = () => {
 }
 
 const switchTheme = () => {
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark')
-    } else {
-        document.documentElement.classList.remove('dark')
-    }
+    let curTheme = localStorage.getItem('theme')
 
+    if (curTheme == 'dark') {
+        localStorage.setItem('theme', 'light')
+    } else {
+        localStorage.setItem('theme', 'dark')
+    }
+    // if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    //     document.documentElement.classList.add('dark')
+    // } else {
+    //     document.documentElement.classList.remove('dark')
+    // }
 }

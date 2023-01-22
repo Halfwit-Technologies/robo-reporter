@@ -18,7 +18,7 @@ export default (req: NextApiRequest,  res: NextApiResponse<CreateRes>) : any => 
 
     console.log(body)
 
-    // TODO: make request to database to create article
+    // TODO: make request to database to update article
 
     const data = {
         title: body.title,

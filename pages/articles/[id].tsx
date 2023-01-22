@@ -17,37 +17,59 @@ const ArticleId: NextPage = () => {
 
 
     return (
-    <div className="mx-auto">
-        <div className="flex flex-wrap w-full pt-0 dark:bg-red-500">
+        <div className="flex flex-wrap w-full m-auto max-w-7xl justify-center align-items-center flex-col">
+            <div className="flex flex-col rounded shadow-md overflow-hidden mb-4 m-auto content-center text-center">
+                <h1 className="font-bold text-5xl mb-5 dark:text-white">{article?.title}</h1>
 
-            <div className="flex flex-col bg-gray-50 rounded shadow-md overflow-hidden mb-4">
-                <h1 className="font-bold text-5xl">{article?.title}</h1>
-
-            {/* <div className="text-xs mb-2 flex flex-wrap">
-                <span className="uppercase cursor-pointer">
-                    <a href={`/${article?.category}/${article?.id}`}>{article?.category}</a>
-                </span>
-                <span className="text-grey-400 mx-1"> - </span>
-                <span className="text-grey-400">{Intl.DateTimeFormat('en-us').format(article?.createdAt)} - <a href='/'>RoboReporter.halfwit.tech</a></span>
-            </div> */}
-
-                <div className="shrink-0">
-                    <img src={`${article?.coverImage}`} alt="cover image" className="max-w-5xl h-full rounded-lg object-cover" width="1250px"></img>
+                <div className="d-flex align-items-center justify-content-center">
+                    <img src={`${article?.coverImage}`} alt="cover image" className="max-w-5xl h-full rounded-lg object-cover m-auto" width="1250px" />
                 </div>
 
-                <div className="flex-1">
-                    <p className="text-lg max-w-4xl">{article?.content}</p>
+                <div className="flex-1 text-center content-center m-auto mb-4">
+                    <p className="text-lg max-w-5xl dark:text-white text-center my-auto">{article?.content}</p>
                 </div>
 
-                <AboutCard name="Joe" image="https://unsplash.it/50" _id="1" isAuthor={true} updatedAt={Date.now()}/>
+                
+                <AboutCard name="Joe" image="https://unsplash.it/50" _id="1" isAuthor={true} updatedAt={Date.now()} />
             </div>
 
+            <div className="my-3 w-full">
+             <NewsletterPrompt />
+         </div>
         </div>
+
+    
+    // <div className="mx-auto">
+    //     <div className="flex flex-wrap w-full m-auto max-w-7xl">
+
+    //         <div className="flex flex-col rounded shadow-md overflow-hidden mb-4 m-auto content-center text-center justify-center">
+    //             <h1 className="font-bold text-5xl mb-5 dark:text-white">{article?.title}</h1>
+
+    //         {/* <div className="text-xs mb-2 flex flex-wrap">
+    //             <span className="uppercase cursor-pointer">
+    //                 <a href={`/${article?.category}/${article?.id}`}>{article?.category}</a>
+    //             </span>
+    //             <span className="text-grey-400 mx-1"> - </span>
+    //             <span className="text-grey-400">{Intl.DateTimeFormat('en-us').format(article?.createdAt)} - <a href='/'>RoboReporter.halfwit.tech</a></span>
+    //         </div> */}
+
+    //             <div className="shrink-0">
+    //                 <img src={`${article?.coverImage}`} alt="cover image" className="max-w-5xl h-full rounded-lg object-cover m-auto" width="1250px"></img>
+    //             </div>
+
+    //             <div className="flex-1 text-center content-center m-0">
+    //                 <p className="text-lg max-w-3xl dark:text-white text-center">{article?.content}</p>
+    //             </div>
+
+    //             <AboutCard name="Joe" image="https://unsplash.it/50" _id="1" isAuthor={true} updatedAt={Date.now()}/>
+    //         </div>
+
+    //     </div>
         
-        <div className="my-3 w-full">
-            <NewsletterPrompt />
-        </div>
-    </div>
+    //     <div className="my-3 w-full">
+    //         <NewsletterPrompt />
+    //     </div>
+    // </div>
 
 
         // <div className="mx-auto">
