@@ -72,9 +72,17 @@ const NewArticlePage: NextPage = () => {
     
 }
 
-const generateTTS = () => {
+const generateTTS = async () => {
     const content = document.getElementById('content')
-    console.log(content?.value)
+    const ttsOptions = {
+        method: "POST",
+        file: content?.value
+    }
+
+    const response = await fetch('/api/ai/generate_tts', ttsOptions)
+    const tts = response.json()
+
+    return tts
 }
 
 const handleSubmit = async (event: any) => {
