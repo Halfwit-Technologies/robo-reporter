@@ -1,14 +1,16 @@
 import Styles from '../styles/Header.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { CategoryContext } from '../utils/CategoryContex'
 
 export const Header = () => {
     const { data: session, status } = useSession()
     const loading = status === 'loading'
     const [ theme, setTheme ] = useState('dark')
+    const { category, setCategory } = useContext(CategoryContext)
 
     if (loading) {
         return <h1>Loading... Please Wait!</h1>
@@ -20,12 +22,12 @@ export const Header = () => {
 
             <div>
                 <Link className='link' href='/'>Latest</Link>
-                <a className='link' href='/news'>News</a>
-                <a className='link' href='/opinion'>Opinion</a>
-                <a className='link' href='/local'>Local</a>
-                <a className='link' href='/politics'>Politics</a>
-                <a className='link' href='/entertainment'>Entertainment</a>
-                <a className='link' href='/sports'>Sports</a>
+                <a className='link' onClick={() => setCategory('news')}>News</a>
+                <a className='link' onClick={() => setCategory('opinion')}>Opinion</a>
+                <a className='link' onClick={() => setCategory('local')}>Local</a>
+                <a className='link' onClick={() => setCategory('politics')}>Politics</a>
+                <a className='link' onClick={() => setCategory('entertainment')}>Entertainment</a>
+                <a className='link' onClick={() => setCategory('sports')}>Sports</a>
                 <Link className='link' href='/about'>About</Link>
             </div>
 

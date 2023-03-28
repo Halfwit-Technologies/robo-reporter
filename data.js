@@ -1,7 +1,3 @@
-
-/**
- * @type Post[]
- */
 export default [
     {
         title: "U.S. Invades Canada",
@@ -61,7 +57,7 @@ export default [
         The Russian people, however, seem to be overwhelmingly supportive of their bear-like leader. "We always knew Putin was a beast, but now it\'s official!" said one Moscow resident. "I can\'t wait to see him tear apart some opposing politicians."
 
         As for the rest of the world, they will just have to brace themselves for the sight of Putin in all his grizzly glory.`,
-        slug: "putin-transforms-into-grizzle-bear",
+        slug: "putin-transforms-into-grizzly-bear",
         category: "Political",
         id: "2",
         createdAt: Date.now(),
@@ -82,9 +78,10 @@ export default [
             url: "https://unsplash.it/1250/300"
         },
         content: "Test Content",
-        slug: "/about",
+        slug: "test-1",
         category: "Test",
         id: "3",
+        posted: false,
     },
     {
         title: "Test Article",
@@ -99,7 +96,7 @@ export default [
         },
         ogImage: "https://unsplash.it/1250/300",
         content: "Test Content",
-        slug: "/about",
+        slug: "test-2",
         category: "Test",
         id: "4",
         posted: true
@@ -120,9 +117,9 @@ export default [
         },
         content: "Test Content",
         category: 'Test',
-        slug: "/about",
+        slug: "test-3",
         id: "5",
-        
+        posted: false,
     },
     {
         title: "Test Article",
@@ -140,8 +137,9 @@ export default [
         },
         content: "Test Content",
         category: 'Test',
-        slug: "/about",
+        slug: "test-4",
         id: "6",
+        posted: false,
     },
     {
         title: "Test Article",
@@ -158,9 +156,10 @@ export default [
             url: "https://unsplash.it/1250/300"
         },
         content: "Test Content",
-        slug: "/about",
+        slug: "test-5",
         id: "7",
         category: 'Test',
+        posted: false,
     },
     {
         title: "Test Article",
@@ -177,9 +176,10 @@ export default [
             url: "https://unsplash.it/1250/300"
         },
         content: "Test Content",
-        slug: "/about",
+        slug: "test-6",
         id: "8",
         category: 'Test',
+        posted: false,
     },
     {
         title: "Test Article",
@@ -196,8 +196,9 @@ export default [
             url: "https://unsplash.it/1250/300"
         },
         content: "Test Content",
-        slug: "/about",
+        slug: "test-7",
         id: "9",
         category: 'Test',
+        posted: false,
     },
 ]

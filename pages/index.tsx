@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Articles from '../data'
+import { CategoryContext } from '../utils/CategoryContex'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faPencilSquare } from '@fortawesome/free-solid-svg-icons'
@@ -10,11 +11,13 @@ import Link from 'next/link'
 
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
+import { Dropdown } from '../components/Dropdown'
+import { useContext } from 'react'
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
-  const [category, setCategory] = useState('latest')
+  const { category, setCategory } = useContext(CategoryContext)
 
   if (loading) {
     return <h1>Loading... Please Wait!</h1>
@@ -58,7 +61,8 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         {Articles.map((article, idx) => {
-          return article.posted && <div key={idx} className={`${styles.card} max-h-80 overflow-hidden max-w-lg`} onClick={() => {
+          return (![undefined, 'latest'].includes(category) && article.category == category) && article.posted && 
+          <div key={idx} className={`${styles.card} max-h-80 overflow-hidden max-w-lg`} onClick={() => {
             window.open(`/articles/${article.category.toLowerCase()}/${article.id}`, "_empty")
           }}>
             <Image src={article.coverImage} width="1000" height="500" alt="cover image for article" priority />

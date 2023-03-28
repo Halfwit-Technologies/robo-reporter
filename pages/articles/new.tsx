@@ -1,11 +1,13 @@
 import { NextPage } from "next"
 import { useSession, signIn } from "next-auth/react"
+import { useEffect, useState } from "react"
 import Articles from '../../data'
 import Post from "../../interfaces/Post"
 
 const NewArticlePage: NextPage = () => {
     const { data: session, status } = useSession()
     const loading = status === 'loading'
+    const [message, setMessage] = useState('Submit')
 
     if (loading) {
         return (<h1>Now Loading... Please Wait.</h1>)
@@ -14,6 +16,11 @@ const NewArticlePage: NextPage = () => {
     if (status == 'authenticated') {
         return (
             <>
+            <form onSubmit={handleAiSubmit}>
+                <label htmlFor="aiMsg">ChatGPT input: </label>
+                <input type="text" name="aiMsg" id="aiMsg" />
+
+            </form>
                 <h1 className='underline text-center text-4xl font-bold py-3'>New Article</h1>
                 <div className="flex items-center justify-center content-center m-auto">
                     <form action="/api/posts/create" method="POST" onSubmit={handleSubmit}>
@@ -30,8 +37,9 @@ const NewArticlePage: NextPage = () => {
                         <br />
     
                         <label htmlFor="category">Category: </label>
-                        <select name="category" className="border" required aria-required id="category" defaultValue={'none'}>
-                            <option value="none" disabled hidden>Select an Option</option>
+
+                        <select name="category" className="border" required aria-required id="category">
+                            <option value="none" disabled hidden className="text-blue-600">Select an Option</option>
                             <option value="political">Political</option>
                             <option value="opinion">Opinion</option>
                             <option value="entertainment">Entertainment</option>
@@ -44,7 +52,7 @@ const NewArticlePage: NextPage = () => {
     
                         <label htmlFor="content">Content: </label>
                         <br />  
-                        <textarea name="content" className="border border-slate-600" id="content" required cols={50} rows={10} spellCheck={true}></textarea>
+                        <textarea name="content" value={message} className="border border-slate-600" id="content" required cols={50} rows={10} spellCheck={true}></textarea>
     
                         <br />
                         <br />
@@ -59,6 +67,8 @@ const NewArticlePage: NextPage = () => {
                         <button type="button" value="generate-tts" className="border rounded-md bg-orange-600 text-white px-5 hover:bg-orange-700" onClick={generateTTS}>Generate TTS</button>
                     </form>
                 </div>
+
+                <textarea name="aiMsgRes" id="aiMsgRes" cols={30} rows={10}></textarea>
             </>
         )
     }
@@ -70,6 +80,33 @@ const NewArticlePage: NextPage = () => {
         </div>
     )
     
+    async function handleAiSubmit(event: any) {
+        event.preventDefault()
+    
+        const aiOptions = {
+            method: "POST",
+            body: JSON.stringify({
+                messages: [
+                    { 'role': 'system', content: 'You are a journalist for a satirical news site called "Robo-Reporter". Your articles blur the line between believable and too good to be true. The articles should be in the markdown format' },
+                    { 'role': 'user', content: event.target.aiMsg.value }
+                ]
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        console.log(aiOptions, JSON.stringify([
+            { 'role': 'system', content: 'You are a journalist for a satirical news site called "Robo-Reporter". Your articles blur the line between believable and too-good-to-be-true. The articles should be in the markdown format' },
+            { 'role': 'user', content: event.target.aiMsg.value }
+        ]))
+
+        const aiMsg = await fetch('/api/ai/create_message', aiOptions)
+        const fnlMsg = await aiMsg.json()
+    
+        console.log(fnlMsg)
+        setMessage(fnlMsg.message)
+    }
 }
 
 const generateTTS = async () => {
@@ -88,7 +125,8 @@ const generateTTS = async () => {
 const handleSubmit = async (event: any) => {
     event.preventDefault()
 
-    console.log(event)
+    // console.log(event)
+
     const data: Post = {
         title: event?.target?.title.value,
         category: event?.target?.category.value,
@@ -109,19 +147,25 @@ const handleSubmit = async (event: any) => {
         slug: '',
         posted: true
     }
-
+    
     const endPoint = '/api/posts/create'
-
+    
     const JsonData = JSON.stringify(data)
-
+    
     const options = {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
-
+        
         body: JsonData
     }
+    console.log({req: event.target})
+    
+    // const messageArea = document.createElement("p")
+    // const content = document.createTextNode(fnlMsg)
+    // messageArea.appendChild(content)
+
 
     const response = await fetch(endPoint, options)
 
@@ -129,5 +173,9 @@ const handleSubmit = async (event: any) => {
 
     // Articles.push(data)
 }   
+
+async function chat() {
+    
+}
 
 export default NewArticlePage
