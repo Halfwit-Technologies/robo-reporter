@@ -1,7 +1,10 @@
 import { NextPage } from "next"
+import Image from 'next/image'
+import { DefaultSession, Session } from "next-auth"
 import { useSession, signIn,  } from "next-auth/react"
 import { useRouter } from "next/router"
 import Articles from '../../../data'
+import Post from "../../../interfaces/Post"
 
 const EditArticlePage: NextPage = () => {
     const { data: session, status } = useSession()
@@ -22,7 +25,7 @@ const EditArticlePage: NextPage = () => {
         <>
             <h1 className='underline text-center text-4xl font-bold py-3 dark:text-white'>Edit Article</h1>
             <div className="flex items-center justify-center content-center m-auto">
-                <form action="/api/posts/edit" method="POST" onSubmit={handleSubmit}>
+                <form action="/api/posts/edit" method="POST" onSubmit={(event) => handleSubmit(event, session)}>
                     <label htmlFor="article-name" className="dark:text-white">Title: </label>
                     <input 
                         type="text" 
@@ -32,7 +35,7 @@ const EditArticlePage: NextPage = () => {
                         minLength={1}
                         required 
                         placeholder="Title of article"
-                        value={article?.title}
+                        defaultValue={article?.title}
                         size={article?.title.length}
                         />
 
@@ -40,13 +43,13 @@ const EditArticlePage: NextPage = () => {
                     <br />
 
                     <label htmlFor="category" className="dark:text-white">Category: </label>
-                    <select name="category" className="border" required aria-required id="category" 
-                        value={article?.category?.toLowerCase()}>
+                    <select name="category" className="border" required aria-required id="category" defaultValue={article?.category?.toLowerCase()}>
                         <option value="none" selected disabled hidden>Select an Option</option>
                         <option value="opinion">Opinion</option>
                         <option value="political">Political</option>
                         <option value="entertainment">Entertainment</option>
                         <option value="sports">Sports</option>
+                        <option value="sponsored">Sponsored</option>
                     </select>
 
                     <br />
@@ -54,12 +57,18 @@ const EditArticlePage: NextPage = () => {
 
                     <label htmlFor="content" className="dark:text-white">Content: </label>
                     <br />  
-                    <textarea name="content" className="border border-slate-600 rounded-md" id="content" required cols={100} rows={25} value={article?.content}></textarea>
+                    <textarea 
+                        name="content" 
+                        className="border border-slate-600 rounded-md" id="content" 
+                        required 
+                        cols={100} 
+                        rows={25} 
+                        defaultValue={article?.content}></textarea>
 
                     <br />
                     <br />
 
-                    <img src={`${article?.coverImage}`} alt="cover image" className="max-w-5xl h-full rounded-lg object-cover m-auto" width="1250px" />
+                    {/* <Image src={article?.coverImage} alt="cover image" className="max-w-5xl h-full rounded-lg object-cover m-auto" width="1250" height="300"/> */}
 
                     <br />
 
@@ -69,7 +78,7 @@ const EditArticlePage: NextPage = () => {
                     <br />
                     <br />
 
-                    <input type="button" value="Save" className="border rounded-md bg-blue-600 text-white px-5" />
+                    <input type="button" value="Save" className="border rounded-md bg-blue-600 text-white px-5" onClick={handleSave}/>
                     <input type="submit" value="Submit" className="border rounded-md bg-green-600 text-white px-5" />
                 </form>
             </div>
@@ -85,15 +94,24 @@ const EditArticlePage: NextPage = () => {
     )
 }
 
-const handleSubmit = async (event: any) => {
+const handleSubmit = async (event: React.FormEvent, session?: Session) => {
     event.preventDefault()
 
-    console.log(event)
+    // console.log(event.target.)
+
+    const target = event.target as typeof event.target & {
+        title: { defaultValue: string },
+        category: { defaultValue: string },
+        content: { defaultValue: string },
+        coverImage: { defaultValue: string },
+        // author: { defaultValue:  DefaultSession.user}
+    }
     const data = {
-        title: event?.target?.title.value,
-        category: event?.target?.category.value,
-        content: event.target.content.value,
-        coverImage: event.target.coverImage.value
+        title: target?.title.defaultValue,
+        category: target?.category.defaultValue,
+        content: target?.content.defaultValue,
+        coverImage: target?.coverImage.defaultValue,
+        author: session?.user
     }
 
     const endPoint = '/api/posts/edit'
@@ -113,6 +131,10 @@ const handleSubmit = async (event: any) => {
 
     const result = await response.json()
     alert(result.success)
+}
+
+const handleSave = () => {
+    console.log('saved')
 }
 
 export default EditArticlePage

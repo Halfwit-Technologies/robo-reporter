@@ -2,43 +2,49 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Post from "../../../interfaces/Post";
 import User from "../../../interfaces/User";
 
-import Articles from '../../../models/Article'
+import Articles from '../../../data'
+import { useSession } from "next-auth/react";
 
 type CreateRes = {
     success: boolean,
     message?: string
 }
 
-export default (req: NextApiRequest,  res: NextApiResponse<CreateRes>) : any => {
+const handler = (req: NextApiRequest,  res: NextApiResponse<CreateRes>) : any => {
+    const { data: session, status } = useSession()
     const body = req.body
 
     if (!body.title || !body.content) {
         return res.status(400).json({ success: false, message: "Missing title or content" })
     }
 
-    console.log(body)
-
     // TODO: make request to database to create article
 
-    const data = {
+    const data:Post = {
         title: body.title,
         category: body.category,
         content: body.content,
         author: {
-            id: '1',
+            _id: '1',
             image: '',
             isAuthor: true,
             name: '',
             updatedAt: Date.now()
         },
         ogImage: {
-            url: body.cover_image
+            url: body.coverImage
         },
-        coverImage: body.cover_image,
-        createdTimestamp: Date.now(),
+        coverImage: body.coverImage,
+        createdAt: Date.now(),
         slug: '',
-        id: ''
+        _id: '',
+        posted: true
     }
+
+    Articles.push(data)
+    console.log(Articles[Articles.length - 1])
 
     res.status(200).json({ success: true })
 }
+
+export default handler

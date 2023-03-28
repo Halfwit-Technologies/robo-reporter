@@ -9,7 +9,7 @@
     position: sticky;
     top: 0;
 
-    max-width: 100%; /* 85% */
+    width: 100%; /* 85% */
     border-bottom: 0.025rem solid #ccc;
     /* box-shadow: ; */
 }
@@ -18,30 +18,9 @@
     align-self: flex-end;
 }
 
-.header > #name {
-    align-self: left;
-    border: 1px solid red;
-}
-
-#header:nth-child(n) {
-    align-self: left;
-    /* border: 5px solid red; */
-}
-
 .link:hover {
     text-decoration: underline;
     /* border: dashed blue; */
-    animation: rainbow linear 2s infinite;
-}
-
-@keyframes rainbow {
-    0% {
-        filter: hue-rotate(0);
-    }
-
-    100% {
-        filter: hue-rotate(360);
-    }
 }
 
 .title {

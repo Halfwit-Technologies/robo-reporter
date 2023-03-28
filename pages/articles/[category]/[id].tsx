@@ -1,11 +1,12 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import Image from 'next/image'
-import Articles from '../../data'
-import { AboutCard } from "../../components/AboutCard";
-import { NewsletterPrompt } from "../../components/NewsletterPrompt";
-import Post from '../../interfaces/Post'
-
+import Articles from '../../../data'
+import { AboutCard } from "../../../components/AboutCard";
+import { NewsletterPrompt } from "../../../components/NewsletterPrompt";
+import Post from '../../../interfaces/Post'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 
 const ArticleId: NextPage = () => {
     const router = useRouter()
@@ -15,27 +16,33 @@ const ArticleId: NextPage = () => {
         return article.id == id
     })
 
+    const play = (file: string) => {
+        let audio = new Audio(file)
+        audio.play()
+    }
 
     return (
         <div className="flex flex-wrap w-full m-auto max-w-7xl justify-center align-items-center flex-col">
-            <div className="flex flex-col rounded shadow-md overflow-hidden mb-4 m-auto content-center text-center">
+            {/* Article */}
+            <div className="flex flex-col rounded overflow-hidden mb-4 m-auto content-center text-center">
                 <h1 className="font-bold text-5xl mb-5 dark:text-white">{article?.title}</h1>
+                <button type="button" name="audio" onClick={() => play(`/audio/${id}.mp3`)}><FontAwesomeIcon icon={faPlay} size="2xl" /></button>
 
-                <div className="d-flex align-items-center justify-content-center">
-                    <img src={`${article?.coverImage}`} alt="cover image" className="max-w-5xl h-full rounded-lg object-cover m-auto" width="1250px" />
-                </div>
+                {/* <div className="d-flex align-items-center justify-content-center">
+                    <Image src={article?.coverImage} alt="cover image" className="max-w-5xl h-full rounded-lg object-cover m-auto" width={1250} height={300} />
+                </div> */}
 
                 <div className="flex-1 text-center content-center m-auto mb-4">
-                    <p className="text-lg max-w-5xl dark:text-white text-center my-auto">{article?.content}</p>
+                    <p className="text-lg max-w-5xl dark:text-white text-center my-auto whitespace-pre-line">{article?.content}</p>
                 </div>
-
                 
                 <AboutCard name="Joe" image="https://unsplash.it/50" _id="1" isAuthor={true} updatedAt={Date.now()} />
             </div>
 
+            {/* Sidebar */}
             <div className="my-3 w-full">
              <NewsletterPrompt />
-         </div>
+            </div>
         </div>
 
     

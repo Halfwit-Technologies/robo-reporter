@@ -30,12 +30,13 @@ const NewArticlePage: NextPage = () => {
                         <br />
     
                         <label htmlFor="category">Category: </label>
-                        <select name="category" className="border" required aria-required id="category">
-                            <option value="none" selected disabled hidden>Select an Option</option>
+                        <select name="category" className="border" required aria-required id="category" defaultValue={'none'}>
+                            <option value="none" disabled hidden>Select an Option</option>
                             <option value="political">Political</option>
                             <option value="opinion">Opinion</option>
                             <option value="entertainment">Entertainment</option>
                             <option value="sports">Sports</option>
+                            <option value="sponsored">Sponsored</option>
                         </select>
     
                         <br />
@@ -43,7 +44,7 @@ const NewArticlePage: NextPage = () => {
     
                         <label htmlFor="content">Content: </label>
                         <br />  
-                        <textarea name="content" className="border border-slate-600" id="content" required cols={50} rows={10}></textarea>
+                        <textarea name="content" className="border border-slate-600" id="content" required cols={50} rows={10} spellCheck={true}></textarea>
     
                         <br />
                         <br />
@@ -53,8 +54,9 @@ const NewArticlePage: NextPage = () => {
                         <br />
                         <br />
     
-                        <input type="button" value="Save" className="border rounded-md bg-blue-600 text-white px-5" />
-                        <input type="submit" value="Submit" className="border rounded-md bg-green-600 text-white px-5" />
+                        <button type="button" value="Save" className="border rounded-md bg-blue-600 text-white px-5 hover:bg-blue-700">Save</button>
+                        <button type="submit" value="Submit" className="border rounded-md bg-green-600 text-white px-5 hover:bg-green-700">Submit</button>
+                        <button type="button" value="generate-tts" className="border rounded-md bg-orange-600 text-white px-5 hover:bg-orange-700" onClick={generateTTS}>Generate TTS</button>
                     </form>
                 </div>
             </>
@@ -68,6 +70,11 @@ const NewArticlePage: NextPage = () => {
         </div>
     )
     
+}
+
+const generateTTS = () => {
+    const content = document.getElementById('content')
+    console.log(content?.value)
 }
 
 const handleSubmit = async (event: any) => {
@@ -91,7 +98,8 @@ const handleSubmit = async (event: any) => {
         ogImage: {
             url: ''
         },
-        slug: ''
+        slug: '',
+        posted: true
     }
 
     const endPoint = '/api/posts/create'
@@ -111,7 +119,7 @@ const handleSubmit = async (event: any) => {
 
     const result = await response.json()
 
-    // Articles.push()
+    // Articles.push(data)
 }   
 
 export default NewArticlePage

@@ -14,6 +14,7 @@ interface Post {
     }
     content: string
     slug: string,
+    posted: boolean
 }
 
 const postSchema = {
