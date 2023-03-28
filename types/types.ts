@@ -4,3 +4,7 @@ type ConstructorMapping<T> =
 
 export default ConstructorMapping
 
+export interface ChatMessage {
+    role: string,
+    content: string
+}

@@ -18,9 +18,11 @@ const handler = (req: NextApiRequest,  res: NextApiResponse<CreateRes>) : any =>
         return res.status(400).json({ success: false, message: "Missing title or content" })
     }
 
+    // console.log(body)
+
     // TODO: make request to database to create article
 
-    const data:Post = {
+    const data = {
         title: body.title,
         category: body.category,
         content: body.content,
