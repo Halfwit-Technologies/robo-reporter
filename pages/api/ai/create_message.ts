@@ -24,6 +24,6 @@ export default async (req: NextApiRequest,  res: NextApiResponse) => {
     const GPTMessage = chatGPT.data.choices[0].message
 
     res.status(200).json({
-        message: GPTMessage
+        message: GPTMessage?.content
     })
 }

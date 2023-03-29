@@ -5,9 +5,7 @@ import * as fs from 'fs'
 export default async(req: NextApiRequest,  res: NextApiResponse) => {
     const article = req.body
 
-    const client = new textToSpeech.TextToSpeechClient({
-        keyFilename: '' 
-    })
+    const client = new textToSpeech.TextToSpeechClient()
 
     const voice_params = {
         languageCode: 'en-US',
@@ -27,7 +25,7 @@ export default async(req: NextApiRequest,  res: NextApiResponse) => {
       };
 
     client.synthesizeSpeech({
-        input: {text: article},
+        input: {text: "Hello, World!"},
         voice: voice_params,
         audioConfig: {
             audioEncoding: 'MP3'
@@ -46,7 +44,6 @@ export default async(req: NextApiRequest,  res: NextApiResponse) => {
             console.log('audio content written to file: /audio/output.mp3')
         })
     })
-
 
     res.status(200).json({
         file: "/audio/output.mp3"

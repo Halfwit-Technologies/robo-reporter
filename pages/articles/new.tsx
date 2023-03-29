@@ -7,7 +7,7 @@ import Post from "../../interfaces/Post"
 const NewArticlePage: NextPage = () => {
     const { data: session, status } = useSession()
     const loading = status === 'loading'
-    const [message, setMessage] = useState('Submit')
+    const [message, setMessage] = useState('')
 
     if (loading) {
         return (<h1>Now Loading... Please Wait.</h1>)
@@ -52,7 +52,15 @@ const NewArticlePage: NextPage = () => {
     
                         <label htmlFor="content">Content: </label>
                         <br />  
-                        <textarea name="content" value={message} className="border border-slate-600" id="content" required cols={50} rows={10} spellCheck={true}></textarea>
+                        <textarea 
+                            name="content" 
+                            value={message} 
+                            className="border border-slate-600" id="content" 
+                            required cols={50} 
+                            rows={10} 
+                            spellCheck={true} 
+                            onChange={() => setMessage(message)}>
+                        </textarea>
     
                         <br />
                         <br />
@@ -96,15 +104,9 @@ const NewArticlePage: NextPage = () => {
             }
         }
 
-        console.log(aiOptions, JSON.stringify([
-            { 'role': 'system', content: 'You are a journalist for a satirical news site called "Robo-Reporter". Your articles blur the line between believable and too-good-to-be-true. The articles should be in the markdown format' },
-            { 'role': 'user', content: event.target.aiMsg.value }
-        ]))
-
         const aiMsg = await fetch('/api/ai/create_message', aiOptions)
         const fnlMsg = await aiMsg.json()
     
-        console.log(fnlMsg)
         setMessage(fnlMsg.message)
     }
 }
