@@ -8,6 +8,7 @@ const NewArticlePage: NextPage = () => {
     const { data: session, status } = useSession()
     const loading = status === 'loading'
     const [message, setMessage] = useState('')
+    const [charCount, setCharCount] = useState(0)
 
     if (loading) {
         return (<h1>Now Loading... Please Wait.</h1>)
@@ -18,7 +19,8 @@ const NewArticlePage: NextPage = () => {
             <>
             <form onSubmit={handleAiSubmit}>
                 <label htmlFor="aiMsg">ChatGPT input: </label>
-                <input type="text" name="aiMsg" id="aiMsg" />
+                <input type="text" name="aiMsg" id="aiMsg" size={50}/>
+                <button type="submit" className="border rounded-md bg-red-900 text-white px-5">Submit</button>
 
             </form>
                 <h1 className='underline text-center text-4xl font-bold py-3'>New Article</h1>
@@ -30,9 +32,10 @@ const NewArticlePage: NextPage = () => {
                             name="title" 
                             id="article-title" 
                             className="border valid:border-green-500 border-slate-400" 
-                            minLength={1}
+                            minLength={16}
                             required 
-                            placeholder="Title of article"/>
+                            placeholder="Title of article"
+                            autoFocus/>
                         <br />
                         <br />
     
@@ -54,13 +57,16 @@ const NewArticlePage: NextPage = () => {
                         <br />  
                         <textarea 
                             name="content" 
-                            value={message} 
+                            defaultValue={message} 
                             className="border border-slate-600" id="content" 
-                            required cols={50} 
+                            required 
+                            cols={50} 
                             rows={10} 
                             spellCheck={true} 
-                            onChange={() => setMessage(message)}>
+                            onChange={contentChange}>
+                                {message}
                         </textarea>
+                        <p id="char-count">{charCount} Characters</p>
     
                         <br />
                         <br />
@@ -87,6 +93,15 @@ const NewArticlePage: NextPage = () => {
             <button type="button" className="border rounded-md bg-blue-600 px-5 text-white" onClick={() => signIn()}>Sign In</button>
         </div>
     )
+
+    function contentChange() {
+        console.log("content changed")
+        setMessage(message)
+        const chars = document.getElementById('char-count')
+        if (!chars) {return}
+        chars!.innerHTML = message.length.toString() + " Characters"
+        // setCharCount(message.length)
+    }
     
     async function handleAiSubmit(event: any) {
         event.preventDefault()
@@ -104,25 +119,28 @@ const NewArticlePage: NextPage = () => {
             }
         }
 
+        console.log("before")
         const aiMsg = await fetch('/api/ai/create_message', aiOptions)
         const fnlMsg = await aiMsg.json()
-    
+        
+        console.log("after")
+        console.log({fnlMsg})
         setMessage(fnlMsg.message)
     }
-}
 
-const generateTTS = async () => {
-    const content = document.getElementById('content')
-    const ttsOptions = {
-        method: "POST",
-        file: content?.value
+    async function generateTTS() {
+        const ttsOptions = {
+            method: "POST",
+            body: message
+        }
+    
+        const response = await fetch('/api/ai/create_tts', ttsOptions)
+        const tts = response.json()
+    
+        return tts
     }
-
-    const response = await fetch('/api/ai/generate_tts', ttsOptions)
-    const tts = response.json()
-
-    return tts
 }
+
 
 const handleSubmit = async (event: any) => {
     event.preventDefault()

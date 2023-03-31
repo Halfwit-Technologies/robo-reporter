@@ -13,9 +13,7 @@ const openai = new OpenAIApi(configuration)
 
 export default async (req: NextApiRequest,  res: NextApiResponse) => {
     const { messages } = req.body
-
-    console.log({ messages })
-
+    
     const chatGPT = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
         messages
